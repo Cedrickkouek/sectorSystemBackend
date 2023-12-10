@@ -6,6 +6,7 @@ import { BriefcaseIcon, UserIcon } from '@heroicons/react/outline';
 function Sectors() {
   const [values, setValues] = useState([]);
   const [options, setOptions] = useState([]);
+  const [action, setAction] = useState("Save");
   const [agreeTerms, setAgreeTerms] = useState(false);
 
   useEffect(() => {
@@ -30,9 +31,12 @@ function Sectors() {
     <div className="container">
        <div className="box form-box">
        <div className="header">
-          <h1 className="text">
-            Please enter your name and pick the Sectors  you are currently involved in.
-          </h1>
+        <div className="text">
+            {action}
+        </div>
+          <h4 className="text2">
+            Please enter your name and pick the Sectors you are currently involved in.
+          </h4>
         </div>
 
         <div className="inputs">
@@ -67,8 +71,8 @@ function Sectors() {
 
 
         <div className="save-info">
-          <div className="save" >Save</div>
-          <div className="save" >Edit User</div>
+          <div className={action==="Edit User"?"save gray":"save"} onClick={() =>{setAction("Save")}} >Save</div>
+          <div className={action==="Save"?"save gray":"save"} onClick={() =>{setAction("Edit User")}}>Edit User</div>
         </div>
        </div>
     </div>
