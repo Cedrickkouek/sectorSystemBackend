@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Sectors.css';
 import userIcon from '../Assets/person.png';
+import { BriefcaseIcon, UserIcon } from '@heroicons/react/outline';
 
 function Sectors() {
   const [values, setValues] = useState([]);
@@ -38,17 +39,24 @@ function Sectors() {
           <div className="input">
           <label htmlFor="nom">Name</label>
               <input name="nom" type="text" placeholder='Enter your name'/>
+              <UserIcon className="userI"/>
           </div>
         </div>
 
       <div className="sectorsContainer">
             <div className="sectors">
+                    
                     <label htmlFor="">Sector</label>
                     <select onChange={(e)=>setOptions(e.target.value)}>
+                      
+                    <option value="" disabled selected>
+                        Select a sector
+                    </option>
                       {
                           values.map((opts,i)=><option key={i}>{opts}</option>)
                       }
                     </select>
+                    <BriefcaseIcon className="workingSector" />
               </div>
       </div>
       

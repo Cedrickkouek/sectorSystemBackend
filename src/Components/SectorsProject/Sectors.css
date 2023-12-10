@@ -122,3 +122,20 @@ input[type="checkbox"] {
   flex-grow: 1;
 }
 
+.input img{
+    margin-left: 13px;
+    margin-bottom: 15px;
+}
+
+.workingSector{
+  height: 40px;
+  width: 40px;
+  margin-left: 15px;
+  margin-bottom: 22px;
+}
+.userI{
+  height: 40px;
+  width: 40px;
+  margin-left: 15px;
+  margin-bottom: 22px;
+}
