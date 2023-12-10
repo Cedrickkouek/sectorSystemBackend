@@ -24,7 +24,7 @@
 
 .text{
   font-weight: 700;
-  font-size: 48px;
+  font-size: 40px;
   text-align: center;
   margin-top: 15px;
   color:#007bff;
@@ -95,6 +95,7 @@
   display: flex;
   margin: auto;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .save {
@@ -161,6 +162,11 @@ input[type="checkbox"] {
     width: 78%;
   }
 
+  .gray{
+    background: #EAEAEA;
+    color: #676767;
+  }
+
   .inputs, .sectorsContainer {
     flex-direction: column;
   }
@@ -223,6 +229,11 @@ input[type="checkbox"] {
     flex-direction: column;
   }
 
+  .gray{
+    background: #EAEAEA;
+    color: #676767;
+  }
+
   .input, .sectors, .checkbox-container {
     width: 320px;
   }
@@ -279,6 +290,11 @@ input[type="checkbox"] {
 
   .inputs, .sectorsContainer {
     flex-direction: column;
+  }
+
+  .gray{
+    background: #EAEAEA;
+    color: #676767;
   }
 
   .input, .sectors, .checkbox-container {
@@ -339,6 +355,11 @@ input[type="checkbox"] {
     flex-direction: column;
   }
 
+  .gray{
+    background: #EAEAEA;
+    color: #676767;
+  }
+
   .input, .sectors, .checkbox-container {
     width: 200px;
   }
@@ -393,6 +414,11 @@ input[type="checkbox"] {
     width: 60%;
   }
 
+  .gray{
+    background: #EAEAEA;
+    color: #676767;
+  }
+
   .inputs, .sectorsContainer {
     flex-direction: column;
   }
@@ -444,4 +470,8 @@ input[type="checkbox"] {
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+}
+
+.i2{
+  margin-top: 20px;
 }
