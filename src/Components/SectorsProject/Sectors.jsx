@@ -13,6 +13,11 @@ function Sectors() {
     sector: "",
     agreeTerms: false,
   });
+  const [formData2, setFormData2] = useState({
+    oldName: "",
+    newName: "",
+    sector: "",
+  });
   const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
@@ -28,24 +33,44 @@ function Sectors() {
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    if (action === "Save") {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    } else {
+      setFormData2({
+        ...formData2,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const selectedSector = document.querySelector('.sectors select').value;
 
-    const formDataObject = {
+    const formDataObject = action === "Save" ? {
       name: formData.name,
       sector: selectedSector,
       agreeTerms: isChecked
+    } : {
+      oldName: formData2.oldName,
+      newName: formData2.newName,
+      sector: selectedSector
     };
 
-    Axios.post('http://127.0.0.1:8090/kouekamdev/Users/CreateUser', formDataObject)
+    const url = action === "Edit User" ? 'http://127.0.0.1:8090/kouekamdev/Users/EditUser' : 'http://127.0.0.1:8090/kouekamdev/Users/CreateUser';
+
+    const method = action === "Edit User" ? 'PUT' : 'POST';
+
+    Axios({
+      method: method,
+      url: url,
+      data: formDataObject
+    })
       .then(response => {
         console.log(response);
       })
@@ -81,6 +106,7 @@ function Sectors() {
                   name="name"
                   type="text"
                   placeholder="Enter your name"
+                  required
                 />
                 <UserIcon className="userI" />
               </div>
@@ -88,20 +114,24 @@ function Sectors() {
           ) : (
             <div>
               <div className="input i2">
-                <label htmlFor="nom">Old Name</label>
+                <label htmlFor="oldName">Old Name</label>
                 <input
+                  onChange={handleChange}
                   name="oldName"
                   type="text"
                   placeholder="Enter your Current name"
+                  required
                 />
                 <UserIcon className="userI" onChange={handleChange} />
               </div>
               <div className="input">
-                <label htmlFor="newNom">New Name</label>
+                <label htmlFor="newName">New Name</label>
                 <input
-                  name="newNom"
+                  onChange={handleChange}
+                  name="newName"
                   type="text"
                   placeholder="Enter your New name or leave blank"
+                  required
                 />
                 <UserIcon className="userI" />
               </div>
@@ -135,6 +165,7 @@ function Sectors() {
               className="checkbox"
               checked={isChecked}
               onChange={handleCheckboxChange}
+              required
             />
             <label className="yep" htmlFor="terms-agree">
               Agree to <a href="#">Terms</a>.
