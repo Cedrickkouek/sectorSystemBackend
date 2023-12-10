@@ -91,7 +91,7 @@
 
 .save-info {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   margin: auto;
   align-items: center;
@@ -474,4 +474,9 @@ input[type="checkbox"] {
 
 .i2{
   margin-top: 20px;
+}
+
+.btn{
+  font-size: 17px;
+  transition: background-color 0.3s ease;
 }

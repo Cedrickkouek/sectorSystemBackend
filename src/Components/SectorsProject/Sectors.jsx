@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./Sectors.css";
 import userIcon from "../Assets/person.png";
+import Axios from "axios";
 import { BriefcaseIcon, UserIcon } from "@heroicons/react/outline";
 
 function Sectors() {
   const [values, setValues] = useState([]);
   const [options, setOptions] = useState([]);
   const [action, setAction] = useState("Save");
-  const [agreeTerms, setAgreeTerms] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    sector: "",
+    agreeTerms: false,
+  });
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     fetch(
@@ -17,28 +23,52 @@ function Sectors() {
       .then((val) => setValues(val));
   }, []);
 
-  const handleAgreeTermsChange = () => {
-    setAgreeTerms(!agreeTerms);
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const selectedSector = document.querySelector('.sectors select').value;
+
+    const formDataObject = {
+      name: formData.name,
+      sector: selectedSector,
+      agreeTerms: isChecked
+    };
+
+    Axios.post('http://127.0.0.1:8090/kouekamdev/Users/CreateUser', formDataObject)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   console.log(values, "valeurs");
-
-  /*const handleSave = () => {
-    // Add your save logic here
-    console.log('Name:', name);
-    console.log('Sectors:', sectors);
-    console.log('Agree to terms:', agreeTerms);
-  };*/
 
   return (
     <div className="container">
       <div className="box form-box">
         <div className="header">
           <div className="text">{action}</div>
-          {action==="Save"?(<h4 className="text2">
-            Please enter your name and pick the Sectors you are currently
-            involved in.
-          </h4>):(<div></div>)}
+          {action === "Save" ? (
+            <h4 className="text2">
+              Please enter your name and pick the Sectors you are currently
+              involved in.
+            </h4>
+          ) : (
+            <div></div>
+          )}
         </div>
 
         <div className="inputs">
@@ -46,7 +76,12 @@ function Sectors() {
             <div>
               <div className="input">
                 <label htmlFor="nom">Name</label>
-                <input name="nom" type="text" placeholder="Enter your name" />
+                <input
+                  onChange={handleChange}
+                  name="name"
+                  type="text"
+                  placeholder="Enter your name"
+                />
                 <UserIcon className="userI" />
               </div>
             </div>
@@ -54,13 +89,17 @@ function Sectors() {
             <div>
               <div className="input i2">
                 <label htmlFor="nom">Old Name</label>
-                <input name="nom" type="text" placeholder="Enter your Current name" />
-                <UserIcon className="userI" />
+                <input
+                  name="oldName"
+                  type="text"
+                  placeholder="Enter your Current name"
+                />
+                <UserIcon className="userI" onChange={handleChange} />
               </div>
               <div className="input">
-                <label htmlFor="oldNom">New Name</label>
+                <label htmlFor="newNom">New Name</label>
                 <input
-                  name="oldNom"
+                  name="newNom"
                   type="text"
                   placeholder="Enter your New name or leave blank"
                 />
@@ -73,8 +112,11 @@ function Sectors() {
         <div className="sectorsContainer">
           <div className="sectors">
             <label htmlFor="">Sector</label>
-            <select onChange={(e) => setOptions(e.target.value)}>
-              <option value="" disabled selected>
+            <select
+              onChange={(e) => setOptions(e.target.value)}
+              defaultValue=""
+            >
+              <option value="" disabled>
                 Select a sector
               </option>
               {values.map((opts, i) => (
@@ -87,7 +129,13 @@ function Sectors() {
 
         {action === "Save" ? (
           <div className="checkbox-container">
-            <input type="checkbox" id="terms-agree" className="checkbox" />
+            <input
+              type="checkbox"
+              id="terms-agree"
+              className="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+            />
             <label className="yep" htmlFor="terms-agree">
               Agree to <a href="#">Terms</a>.
             </label>
@@ -113,6 +161,15 @@ function Sectors() {
           >
             Edit User
           </div>
+        </div>
+        <div>
+          <button
+            onClick={handleSubmit}
+            className="save-info btn"
+            type="submit"
+          >
+            Submit
+          </button>
         </div>
       </div>
     </div>
