@@ -20,6 +20,7 @@ function Sectors() {
   });
   const [isChecked, setIsChecked] = useState(false);
 
+
   useEffect(() => {
     fetch(
       "http://ec2-35-181-51-247.eu-west-3.compute.amazonaws.com:8090/kouekamdev/sectors/GetAllSectors"
@@ -62,7 +63,7 @@ function Sectors() {
       sector: selectedSector
     };
 
-    const url = action === "Edit User" ? 'http://127.0.0.1:8090/kouekamdev/Users/EditUser' : 'http://127.0.0.1:8090/kouekamdev/Users/CreateUser';
+    const url = action === "Edit User" ? 'http://ec2-35-181-51-247.eu-west-3.compute.amazonaws.com:8090/kouekamdev/Users/EditUser' : 'http://ec2-35-181-51-247.eu-west-3.compute.amazonaws.com:8090/kouekamdev/Users/CreateUser';
 
     const method = action === "Edit User" ? 'PUT' : 'POST';
 
@@ -72,14 +73,14 @@ function Sectors() {
       data: formDataObject
     })
       .then(response => {
+        alert("Data saved or edited successfully");
         console.log(response);
       })
       .catch(err => {
+        alert("Error: Failed to save or edit data");
         console.log(err);
       });
   };
-
-  console.log(values, "valeurs");
 
   return (
     <div className="container">
