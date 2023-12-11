@@ -23,7 +23,7 @@ function Sectors() {
 
   useEffect(() => {
     fetch(
-      "http://ec2-35-181-51-247.eu-west-3.compute.amazonaws.com:8090/kouekamdev/sectors/GetAllSectors"
+      "https://ec2-35-181-51-247.eu-west-3.compute.amazonaws.com:8090/kouekamdev/sectors/GetAllSectors"
     )
       .then((data) => data.json())
       .then((val) => setValues(val));
@@ -63,7 +63,7 @@ function Sectors() {
       sector: selectedSector
     };
 
-    const url = action === "Edit User" ? 'http://ec2-35-181-51-247.eu-west-3.compute.amazonaws.com:8090/kouekamdev/Users/EditUser' : 'http://ec2-35-181-51-247.eu-west-3.compute.amazonaws.com:8090/kouekamdev/Users/CreateUser';
+    const url = action === "Edit User" ? 'https://ec2-35-181-51-247.eu-west-3.compute.amazonaws.com:8090/kouekamdev/Users/EditUser' : 'https://ec2-35-181-51-247.eu-west-3.compute.amazonaws.com:8090/kouekamdev/Users/CreateUser';
 
     const method = action === "Edit User" ? 'PUT' : 'POST';
 
@@ -147,7 +147,7 @@ function Sectors() {
               onChange={(e) => setOptions(e.target.value)}
               defaultValue=""
             >
-              <option value="" disabled>
+              <option value="" disabled selected>
                 Select a sector
               </option>
               {values.map((opts, i) => (
